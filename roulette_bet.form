@@ -45,7 +45,10 @@
       },
       "id": "Field_11nk016",
       "key": "number_lcxuog",
-      "readonly": true
+      "readonly": false,
+      "conditional": {
+        "hide": "=radio_options != \"NUMBER\""
+      }
     }
   ],
   "type": "default",
