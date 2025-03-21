@@ -86,10 +86,6 @@
     <bpmn:endEvent id="Event_1yrt7vy" name="Game ends">
       <bpmn:incoming>Flow_1nxbvvq</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:task id="Activity_0oqden4" name="Show end Screen">
-      <bpmn:incoming>Flow_0t3zop3</bpmn:incoming>
-      <bpmn:outgoing>Flow_1nxbvvq</bpmn:outgoing>
-    </bpmn:task>
     <bpmn:sequenceFlow id="Flow_0t3zop3" name="no" sourceRef="Gateway_1jkxm6p" targetRef="Activity_0oqden4" />
     <bpmn:sequenceFlow id="Flow_1nxbvvq" sourceRef="Activity_0oqden4" targetRef="Event_1yrt7vy" />
     <bpmn:serviceTask id="Activity_05n55f0" name="Update Player money">
@@ -102,6 +98,10 @@
     <bpmn:userTask id="Activity_1y8cr9y" name="Ask Player if he wants to play again">
       <bpmn:incoming>Flow_12w8eur</bpmn:incoming>
       <bpmn:outgoing>Flow_0flizsu</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_0oqden4" name="Show end Screen">
+      <bpmn:incoming>Flow_0t3zop3</bpmn:incoming>
+      <bpmn:outgoing>Flow_1nxbvvq</bpmn:outgoing>
     </bpmn:userTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -195,15 +195,14 @@
           <dc:Bounds x="1741" y="715" width="58" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0oqden4_di" bpmnElement="Activity_0oqden4">
-        <dc:Bounds x="1590" y="650" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0tlto5l_di" bpmnElement="Activity_05n55f0">
         <dc:Bounds x="1200" y="590" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1y7y00e_di" bpmnElement="Activity_1y8cr9y">
         <dc:Bounds x="1350" y="590" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1m9rdic_di" bpmnElement="Activity_0oqden4">
+        <dc:Bounds x="1590" y="650" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_19b005o_di" bpmnElement="Flow_19b005o">
         <di:waypoint x="248" y="630" />
