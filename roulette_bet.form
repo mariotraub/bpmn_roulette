@@ -1,0 +1,63 @@
+{
+  "components": [
+    {
+      "label": "Radio group",
+      "values": [
+        {
+          "label": "RED",
+          "value": "RED"
+        },
+        {
+          "label": "BLACK",
+          "value": "BLACK"
+        },
+        {
+          "label": "GREEN",
+          "value": "GREEN"
+        },
+        {
+          "label": "EVEN",
+          "value": "EVEN"
+        },
+        {
+          "label": "UNEVEN",
+          "value": "UNEVEN"
+        },
+        {
+          "label": "NUMBER",
+          "value": "NUMBER"
+        }
+      ],
+      "type": "radio",
+      "layout": {
+        "row": "Row_1g216lx",
+        "columns": null
+      },
+      "id": "Field_0cmwf4j",
+      "key": "radio_options"
+    },
+    {
+      "label": "Number",
+      "type": "number",
+      "layout": {
+        "row": "Row_1jldull",
+        "columns": null
+      },
+      "id": "Field_11nk016",
+      "key": "number_lcxuog",
+      "readonly": false,
+      "conditional": {
+        "hide": "=radio_options != \"NUMBER\""
+      }
+    }
+  ],
+  "type": "default",
+  "id": "Form_1uwb9e8",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.32.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.22.0",
+  "schemaVersion": 18
+}
