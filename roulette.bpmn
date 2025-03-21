@@ -107,7 +107,7 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_11onuxc">
       <bpmndi:BPMNShape id="Participant_1leqb0d_di" bpmnElement="Participant_1leqb0d" isHorizontal="true">
-        <dc:Bounds x="160" y="80" width="1560" height="260" />
+        <dc:Bounds x="160" y="80" width="1660" height="260" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_07f8dmu_di" bpmnElement="StartEvent_1">
