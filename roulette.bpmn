@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0a5u4fg" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.32.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.22.0">
-  <bpmn:collaboration id="Collaboration_11onuxc">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0a5u4fg" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.32.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.22.0">
+  <bpmn:collaboration id="Roulette">
     <bpmn:participant id="Participant_1leqb0d" name="Dealer" processRef="Process_1xyfxwe" />
     <bpmn:participant id="Participant_18xjg26" name="Player" processRef="Process_00f53ij" />
     <bpmn:messageFlow id="Flow_0fcm6rw" sourceRef="Event_03ah92u" targetRef="StartEvent_1" />
     <bpmn:messageFlow id="Flow_1yi8520" sourceRef="Event_10b7avr" targetRef="Event_0hd8a1b" />
   </bpmn:collaboration>
-  <bpmn:process id="Process_1xyfxwe" isExecutable="true">
+  <bpmn:process id="Process_1xyfxwe" isExecutable="true" camunda:historyTimeToLive="100">
     <bpmn:startEvent id="StartEvent_1" name="All players put in their bet">
       <bpmn:outgoing>Flow_0kv3jq5</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_0q1jbma" />
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0q1jbma" messageRef="Message_2sskq1d" />
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_0kv3jq5" sourceRef="StartEvent_1" targetRef="Activity_0mo4x8b" />
     <bpmn:intermediateThrowEvent id="Event_10b7avr" name="DIstribute results">
       <bpmn:incoming>Flow_0dkb6cp</bpmn:incoming>
       <bpmn:outgoing>Flow_1m3t1aj</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_0srtl9e" />
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0srtl9e" messageRef="Message_24m6s9p" />
     </bpmn:intermediateThrowEvent>
     <bpmn:sequenceFlow id="Flow_0dkb6cp" sourceRef="Activity_0mo4x8b" targetRef="Event_10b7avr" />
     <bpmn:endEvent id="Event_037vkxt" name="Game ends">
       <bpmn:incoming>Flow_1m3t1aj</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_1m3t1aj" sourceRef="Event_10b7avr" targetRef="Event_037vkxt" />
-    <bpmn:serviceTask id="Activity_0mo4x8b" name="Spint the wheel">
+    <bpmn:serviceTask id="Activity_0mo4x8b" name="Spint the wheel" camunda:type="external" camunda:topic="spin">
       <bpmn:incoming>Flow_0kv3jq5</bpmn:incoming>
       <bpmn:outgoing>Flow_0dkb6cp</bpmn:outgoing>
     </bpmn:serviceTask>
   </bpmn:process>
-  <bpmn:process id="Process_00f53ij" isExecutable="false">
+  <bpmn:process id="Process_00f53ij" isExecutable="false" camunda:historyTimeToLive="100">
     <bpmn:startEvent id="Event_08kg7j4" name="Game starts">
       <bpmn:outgoing>Flow_19b005o</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:userTask id="Activity_1s4ced8" name="Choose what to bet on">
+    <bpmn:userTask id="Activity_1s4ced8" name="Choose what to bet on" camunda:formRef="Form_1uwb9e8" camunda:formRefBinding="latest">
       <bpmn:incoming>Flow_19b005o</bpmn:incoming>
       <bpmn:incoming>Flow_17f67oq</bpmn:incoming>
       <bpmn:outgoing>Flow_0qkga2y</bpmn:outgoing>
@@ -43,12 +43,12 @@
     <bpmn:intermediateThrowEvent id="Event_03ah92u" name="Done betting">
       <bpmn:incoming>Flow_0gmk3sb</bpmn:incoming>
       <bpmn:outgoing>Flow_11olvnz</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_1haghj6" />
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1haghj6" messageRef="Message_2sskq1d" />
     </bpmn:intermediateThrowEvent>
     <bpmn:intermediateCatchEvent id="Event_0hd8a1b">
       <bpmn:incoming>Flow_11olvnz</bpmn:incoming>
       <bpmn:outgoing>Flow_1olyu5j</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_12iayap" />
+      <bpmn:messageEventDefinition id="MessageEventDefinition_12iayap" messageRef="Message_24m6s9p" />
     </bpmn:intermediateCatchEvent>
     <bpmn:exclusiveGateway id="Gateway_1wxgka6" name="Player won?">
       <bpmn:incoming>Flow_1olyu5j</bpmn:incoming>
@@ -88,10 +88,6 @@
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0t3zop3" name="no" sourceRef="Gateway_1jkxm6p" targetRef="Activity_0oqden4" />
     <bpmn:sequenceFlow id="Flow_1nxbvvq" sourceRef="Activity_0oqden4" targetRef="Event_1yrt7vy" />
-    <bpmn:serviceTask id="Activity_05n55f0" name="Update Player money">
-      <bpmn:incoming>Flow_0xr0b0y</bpmn:incoming>
-      <bpmn:outgoing>Flow_12w8eur</bpmn:outgoing>
-    </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_12w8eur" sourceRef="Activity_05n55f0" targetRef="Activity_1y8cr9y" />
     <bpmn:sequenceFlow id="Flow_0flizsu" sourceRef="Activity_1y8cr9y" targetRef="Gateway_1jkxm6p" />
     <bpmn:sequenceFlow id="Flow_17f67oq" sourceRef="Gateway_1jkxm6p" targetRef="Activity_1s4ced8" />
@@ -103,9 +99,16 @@
       <bpmn:incoming>Flow_0t3zop3</bpmn:incoming>
       <bpmn:outgoing>Flow_1nxbvvq</bpmn:outgoing>
     </bpmn:userTask>
+    <bpmn:scriptTask id="Activity_05n55f0" name="Update Player money" scriptFormat="Jython">
+      <bpmn:incoming>Flow_0xr0b0y</bpmn:incoming>
+      <bpmn:outgoing>Flow_12w8eur</bpmn:outgoing>
+      <bpmn:script>print("Hello")</bpmn:script>
+    </bpmn:scriptTask>
   </bpmn:process>
+  <bpmn:message id="Message_24m6s9p" name="wheel-results" />
+  <bpmn:message id="Message_2sskq1d" name="betting-amount" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
-    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_11onuxc">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Roulette">
       <bpmndi:BPMNShape id="Participant_1leqb0d_di" bpmnElement="Participant_1leqb0d" isHorizontal="true">
         <dc:Bounds x="160" y="80" width="1660" height="260" />
         <bpmndi:BPMNLabel />
@@ -195,14 +198,14 @@
           <dc:Bounds x="1741" y="715" width="58" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0tlto5l_di" bpmnElement="Activity_05n55f0">
-        <dc:Bounds x="1200" y="590" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1y7y00e_di" bpmnElement="Activity_1y8cr9y">
         <dc:Bounds x="1350" y="590" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1m9rdic_di" bpmnElement="Activity_0oqden4">
         <dc:Bounds x="1590" y="650" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1iy8goh_di" bpmnElement="Activity_05n55f0">
+        <dc:Bounds x="1200" y="590" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_19b005o_di" bpmnElement="Flow_19b005o">
         <di:waypoint x="248" y="630" />
