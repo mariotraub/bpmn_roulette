@@ -1,0 +1,24 @@
+{
+  "components": [
+    {
+      "label": "Amount to bet",
+      "type": "number",
+      "layout": {
+        "row": "Row_1v4gv52",
+        "columns": null
+      },
+      "id": "Field_1l1j82a",
+      "key": "number_4qwqj",
+      "description": "Choose an amout of money you want to bet"
+    }
+  ],
+  "type": "default",
+  "id": "Form_0ugkdhv",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.32.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.22.0",
+  "schemaVersion": 18
+}
