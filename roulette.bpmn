@@ -105,20 +105,15 @@
       <bpmn:outgoing>Flow_1xj5o3q</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_1xj5o3q" sourceRef="Activity_0y02dr4" targetRef="Event_01fwuk4" />
-    <bpmn:intermediateThrowEvent id="Event_01fwuk4" name="Distribute results">
-      <bpmn:incoming>Flow_1xj5o3q</bpmn:incoming>
-      <bpmn:outgoing>Flow_049xrn3</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_0e71m7i" camunda:expression="#{execution.getProcessEngineServices().getRuntimeService().createMessageCorrelation(&#39;sendResults&#39;).correlate()}" />
-    </bpmn:intermediateThrowEvent>
-    <bpmn:endEvent id="Event_0sgruyp" name="Game ends">
-      <bpmn:incoming>Flow_049xrn3</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_049xrn3" sourceRef="Event_01fwuk4" targetRef="Event_0sgruyp" />
     <bpmn:startEvent id="Event_11vdsym">
       <bpmn:extensionElements />
       <bpmn:outgoing>Flow_17du223</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_0j5gqcl" messageRef="Message_0kmii25" />
     </bpmn:startEvent>
+    <bpmn:endEvent id="Event_01fwuk4" name="Distribute results">
+      <bpmn:incoming>Flow_1xj5o3q</bpmn:incoming>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_02djjxe" camunda:expression="#{execution.getProcessEngineServices().getRuntimeService().createMessageCorrelation(&#39;sendResults&#39;).correlate()}" />
+    </bpmn:endEvent>
   </bpmn:process>
   <bpmn:message id="Message_0kmii25" name="sendBet" />
   <bpmn:message id="Message_3e75j6q" name="sendResults" />
@@ -272,20 +267,14 @@
       <bpmndi:BPMNShape id="Activity_1kfzctb_di" bpmnElement="Activity_0y02dr4">
         <dc:Bounds x="290" y="690" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0jc1hf2_di" bpmnElement="Event_01fwuk4">
+      <bpmndi:BPMNShape id="Event_1s38j5u_di" bpmnElement="Event_11vdsym">
+        <dc:Bounds x="202" y="712" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1rqy4um_di" bpmnElement="Event_01fwuk4">
         <dc:Bounds x="442" y="712" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="419" y="755" width="83" height="14" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0sgruyp_di" bpmnElement="Event_0sgruyp">
-        <dc:Bounds x="532" y="712" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="521" y="755" width="58" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1s38j5u_di" bpmnElement="Event_11vdsym">
-        <dc:Bounds x="202" y="712" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_17du223_di" bpmnElement="Flow_17du223">
         <di:waypoint x="238" y="730" />
@@ -294,10 +283,6 @@
       <bpmndi:BPMNEdge id="Flow_1xj5o3q_di" bpmnElement="Flow_1xj5o3q">
         <di:waypoint x="390" y="730" />
         <di:waypoint x="442" y="730" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_049xrn3_di" bpmnElement="Flow_049xrn3">
-        <di:waypoint x="478" y="730" />
-        <di:waypoint x="532" y="730" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1apm8j3_di" bpmnElement="Flow_1apm8j3">
         <di:waypoint x="790" y="288" />
