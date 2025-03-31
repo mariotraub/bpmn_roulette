@@ -1,7 +1,7 @@
 {
   "components": [
     {
-      "label": "Radio group",
+      "label": "What do you want to bet on?",
       "values": [
         {
           "label": "RED",
@@ -37,7 +37,7 @@
       "key": "radio_options"
     },
     {
-      "label": "Number",
+      "label": "Choose number",
       "type": "number",
       "layout": {
         "row": "Row_1jldull",
