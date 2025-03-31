@@ -2,7 +2,7 @@
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1vix38x" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.32.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.22.0">
   <bpmn:collaboration id="Collaboration_06snyx6">
     <bpmn:participant id="Participant_03o520p" name="Player" processRef="roulette-game" />
-    <bpmn:participant id="Participant_0dz9df2" name="Dealer" processRef="Process_0k27brp" />
+    <bpmn:participant id="Participant_0dz9df2" name="Dealer" processRef="roulette-dealer" />
     <bpmn:messageFlow id="Flow_1apm8j3" sourceRef="Event_0azxp0r" targetRef="Event_11vdsym" />
     <bpmn:messageFlow id="Flow_0od7k6m" sourceRef="Event_01fwuk4" targetRef="Event_0koexfa" />
   </bpmn:collaboration>
@@ -15,7 +15,7 @@
       <bpmn:incoming>Flow_0rxl8y8</bpmn:incoming>
       <bpmn:outgoing>Flow_1uyymy0</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="Activity_1392tys" name="Choose amount of money to bet" camunda:formRef="number_4qwqj" camunda:formRefBinding="latest">
+    <bpmn:userTask id="Activity_1392tys" name="Choose amount of money to bet" camunda:formRef="Form_0ugkdhv" camunda:formRefBinding="latest">
       <bpmn:incoming>Flow_1uyymy0</bpmn:incoming>
       <bpmn:outgoing>Flow_141qnjc</bpmn:outgoing>
     </bpmn:userTask>
@@ -68,7 +68,7 @@
     <bpmn:intermediateThrowEvent id="Event_0azxp0r">
       <bpmn:incoming>Flow_0ur2an7</bpmn:incoming>
       <bpmn:outgoing>Flow_1iowv2z</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_0wj9c03" messageRef="Message_0kmii25" />
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0wj9c03" camunda:expression="#{execution.getProcessEngineServices().getRuntimeService().createMessageCorrelation(&#39;sendBet&#39;).correlate()}" />
     </bpmn:intermediateThrowEvent>
     <bpmn:intermediateCatchEvent id="Event_0koexfa">
       <bpmn:incoming>Flow_1iowv2z</bpmn:incoming>
@@ -95,10 +95,10 @@
     <bpmn:scriptTask id="Activity_13gi9ju" name="Check if money available" scriptFormat="JavaScript">
       <bpmn:incoming>Flow_141qnjc</bpmn:incoming>
       <bpmn:outgoing>Flow_0ur2an7</bpmn:outgoing>
-      <bpmn:script></bpmn:script>
+      <bpmn:script>console.log("hello world!")</bpmn:script>
     </bpmn:scriptTask>
   </bpmn:process>
-  <bpmn:process id="Process_0k27brp" isExecutable="false" camunda:historyTimeToLive="10">
+  <bpmn:process id="roulette-dealer" isExecutable="true" camunda:historyTimeToLive="10">
     <bpmn:sequenceFlow id="Flow_17du223" sourceRef="Event_11vdsym" targetRef="Activity_0y02dr4" />
     <bpmn:serviceTask id="Activity_0y02dr4" name="SPIN THE WHEEL" camunda:type="external" camunda:topic="spin">
       <bpmn:incoming>Flow_17du223</bpmn:incoming>
@@ -108,7 +108,7 @@
     <bpmn:intermediateThrowEvent id="Event_01fwuk4" name="Distribute results">
       <bpmn:incoming>Flow_1xj5o3q</bpmn:incoming>
       <bpmn:outgoing>Flow_049xrn3</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_0e71m7i" messageRef="Message_3e75j6q" />
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0e71m7i" camunda:expression="#{execution.getProcessEngineServices().getRuntimeService().createMessageCorrelation(&#39;sendResults&#39;).correlate()}" />
     </bpmn:intermediateThrowEvent>
     <bpmn:endEvent id="Event_0sgruyp" name="Game ends">
       <bpmn:incoming>Flow_049xrn3</bpmn:incoming>
@@ -120,8 +120,8 @@
       <bpmn:messageEventDefinition id="MessageEventDefinition_0j5gqcl" messageRef="Message_0kmii25" />
     </bpmn:startEvent>
   </bpmn:process>
-  <bpmn:message id="Message_0kmii25" name="send_bet" />
-  <bpmn:message id="Message_3e75j6q" name="send_results" />
+  <bpmn:message id="Message_0kmii25" name="sendBet" />
+  <bpmn:message id="Message_3e75j6q" name="sendResults" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_06snyx6">
       <bpmndi:BPMNShape id="Participant_03o520p_di" bpmnElement="Participant_03o520p" isHorizontal="true">
@@ -301,14 +301,14 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1apm8j3_di" bpmnElement="Flow_1apm8j3">
         <di:waypoint x="790" y="288" />
-        <di:waypoint x="790" y="520" />
-        <di:waypoint x="220" y="520" />
+        <di:waypoint x="790" y="430" />
+        <di:waypoint x="220" y="430" />
         <di:waypoint x="220" y="712" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0od7k6m_di" bpmnElement="Flow_0od7k6m">
         <di:waypoint x="460" y="712" />
-        <di:waypoint x="460" y="550" />
-        <di:waypoint x="880" y="550" />
+        <di:waypoint x="460" y="620" />
+        <di:waypoint x="880" y="620" />
         <di:waypoint x="880" y="288" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
