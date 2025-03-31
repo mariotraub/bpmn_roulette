@@ -1,56 +1,28 @@
-import requests
-import json
-import time
-import random
+from camunda.external_task.external_task import ExternalTask, TaskResult
+from camunda.external_task.external_task_worker import ExternalTaskWorker
+from random import randint
 
-CAMUNDA_BASE_URL = "http://localhost:8080/engine-rest"
-WORKER_ID = "python_worker_1"
 
-def fetch_task():
-    url = f"{CAMUNDA_BASE_URL}/external-task/fetchAndLock"
-    payload = {
-        "workerId": WORKER_ID,
-        "maxTasks": 1,
-        "topics": [{"topicName": "spin", "lockDuration": 10000}]
-    }
-    response = requests.post(url, json=payload)
-    if response.status_code == 200:
-        tasks = response.json()
-        return tasks[0] if tasks else None
-    print("Error fetching task:", response.text)
-    return None
+config = {
+    "maxTasks": 5,
+    "lockDuration": 10000,
+    "asyncResponseTimeout": 5000,
+    "retries": 3,
+    "retryTimeout": 5000,
+    "sleepSeconds": 30
+}
 
-def spin_roulette():
-    return str(random.randint(0, 36))
 
-def complete_task(task_id, result):
-    url = f"{CAMUNDA_BASE_URL}/external-task/{task_id}/complete"
-    payload = {
-        "workerId": WORKER_ID,
-        "variables": {
-            "spinResult": {"value": result, "type": "String"}
-        }
-    }
-    response = requests.post(url, json=payload)
-    if response.status_code == 204:
-        print("Task completed successfully")
-    else:
-        print("Error completing task:", response.text)
+def handle_spin(task: ExternalTask) -> TaskResult:
+    num = randint(0, 36)
+    return task.complete({"result": num})
 
-def worker_loop():
-    while True:
-        print("Polling for tasks...")
-        task = fetch_task()
-        if not task:
-            print("No tasks available, waiting...")
-            time.sleep(5)
-            continue
-        
-        print(f"Processing task {task['id']}")
-        outcome = spin_roulette()
-        print(f"Task outcome: {outcome}")
-        complete_task(task['id'], outcome)
-        
+
+def main(): 
+    worker = ExternalTaskWorker(worker_id="1", config=config)
+    worker.subscribe("spin", handle_spin)
+
+
 if __name__ == "__main__":
-    print("Starting Camunda external task worker...")
-    worker_loop()
+    main()
+
