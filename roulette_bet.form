@@ -44,7 +44,7 @@
         "columns": null
       },
       "id": "Field_11nk016",
-      "key": "number_lcxuog",
+      "key": "bet_number",
       "readonly": false,
       "conditional": {
         "hide": "=radio_options != \"NUMBER\""
