@@ -17,6 +17,7 @@
     </bpmn:userTask>
     <bpmn:userTask id="Activity_1392tys" name="Choose amount of money to bet" camunda:formRef="Form_0ugkdhv" camunda:formRefBinding="latest">
       <bpmn:incoming>Flow_1uyymy0</bpmn:incoming>
+      <bpmn:incoming>Flow_1aevi3m</bpmn:incoming>
       <bpmn:outgoing>Flow_141qnjc</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_00nkytw" sourceRef="StartEvent_1" targetRef="Activity_0kpde4h" />
@@ -68,7 +69,7 @@
     <bpmn:intermediateThrowEvent id="Event_0azxp0r">
       <bpmn:incoming>Flow_0ur2an7</bpmn:incoming>
       <bpmn:outgoing>Flow_1iowv2z</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_0wj9c03" camunda:expression="#{execution.getProcessEngineServices().getRuntimeService().createMessageCorrelation(&#39;sendBet&#39;).correlate()}" />
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0wj9c03" camunda:expression="#{execution.getProcessEngineServices().getRuntimeService().createMessageCorrelation(&#39;sendBet&#39;).setVariable(&#39;radio_options&#39;, execution.getVariable(&#39;radio_options&#39;)).setVariable(&#39;bet_amount&#39;, execution.getVariable(&#39;bet_amount&#39;)).setVariable(&#39;money&#39;, execution.getVariable(&#39;money&#39;)).correlate()}" />
     </bpmn:intermediateThrowEvent>
     <bpmn:intermediateCatchEvent id="Event_0koexfa">
       <bpmn:incoming>Flow_1iowv2z</bpmn:incoming>
@@ -95,8 +96,15 @@
     <bpmn:scriptTask id="Activity_13gi9ju" name="Check if money available" scriptFormat="JavaScript">
       <bpmn:incoming>Flow_141qnjc</bpmn:incoming>
       <bpmn:outgoing>Flow_0ur2an7</bpmn:outgoing>
-      <bpmn:script>console.log("hello world!")</bpmn:script>
+      <bpmn:script>if (bet_amount &gt; money) {
+  throw new org.camunda.bpm.engine.delegate.BpmnError("Error Message");
+}</bpmn:script>
     </bpmn:scriptTask>
+    <bpmn:boundaryEvent id="Event_04l3nbf" attachedToRef="Activity_13gi9ju">
+      <bpmn:outgoing>Flow_1aevi3m</bpmn:outgoing>
+      <bpmn:errorEventDefinition id="ErrorEventDefinition_0ef0c82" />
+    </bpmn:boundaryEvent>
+    <bpmn:sequenceFlow id="Flow_1aevi3m" sourceRef="Event_04l3nbf" targetRef="Activity_1392tys" />
   </bpmn:process>
   <bpmn:process id="roulette-dealer" isExecutable="true" camunda:historyTimeToLive="10">
     <bpmn:sequenceFlow id="Flow_17du223" sourceRef="Event_11vdsym" targetRef="Activity_0y02dr4" />
@@ -177,6 +185,9 @@
       <bpmndi:BPMNShape id="Activity_06dei3i_di" bpmnElement="Activity_13gi9ju">
         <dc:Bounds x="610" y="230" width="100" height="80" />
         <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1hbhcuh_di" bpmnElement="Event_04l3nbf">
+        <dc:Bounds x="642" y="292" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_00nkytw_di" bpmnElement="Flow_00nkytw">
         <di:waypoint x="238" y="270" />
@@ -259,6 +270,12 @@
       <bpmndi:BPMNEdge id="Flow_1iowv2z_di" bpmnElement="Flow_1iowv2z">
         <di:waypoint x="808" y="270" />
         <di:waypoint x="862" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1aevi3m_di" bpmnElement="Flow_1aevi3m">
+        <di:waypoint x="660" y="328" />
+        <di:waypoint x="660" y="348" />
+        <di:waypoint x="500" y="348" />
+        <di:waypoint x="500" y="310" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_0dz9df2_di" bpmnElement="Participant_0dz9df2" isHorizontal="true">
         <dc:Bounds x="152" y="600" width="1876" height="250" />
