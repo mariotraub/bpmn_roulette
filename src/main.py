@@ -1,6 +1,5 @@
 from camunda.external_task.external_task import ExternalTask, TaskResult
 from camunda.external_task.external_task_worker import ExternalTaskWorker
-from random import randint
 from wheel import Result, Color, spin
 
 
@@ -15,25 +14,25 @@ config = {
 
 
 def handle_spin(task: ExternalTask) -> TaskResult:
-    money = task.get_variable("money")
-    bet_amount = task.get_variable("bet_amount")
+    money: int = int(task.get_variable("money"))
+    bet_amount: int = int(task.get_variable("bet_amount"))
     result = spin()
-
-    mul = check_result(task, result)
+    
+    try:
+        mul = check_result(task, result)
+    except ValueError as e:
+        return task.bpmn_error(500, e)
 
     return task.complete({"money": bet_amount * mul + money})
 
 
 def check_result(task: ExternalTask, result: Result) -> int:
-    bet = task.get_variable("radio_options")
+    bet: str = str(task.get_variable("radio_options"))
     match bet:
         case "NUMBER":
             bet_number = task.get_variable("bet_number")
-
-            if (result.num == bet_number):
-                return 35
-            else:
-                return -1
+            
+            return 35 if result.num == bet_number else -1
         case "BLACK":
             return 1 if result.color == Color.BLACK else -1 
 
@@ -50,8 +49,7 @@ def check_result(task: ExternalTask, result: Result) -> int:
             return 1 if not result.is_even else -1
         
         case _:
-            raise task.bpmn_error("please enter a valid option")
-
+            raise ValueError("Enter a valid option")
 
 def main(): 
     worker = ExternalTaskWorker(worker_id="1", config=config)
