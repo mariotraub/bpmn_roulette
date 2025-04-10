@@ -1,6 +1,14 @@
 {
   "components": [
     {
+      "label": "Money Available",
+      "type": "textfield",
+      "key": "money",
+      "disabled": true,
+      "description": "Your current balance",
+      "id": "Field_money_display"
+    },
+    {
       "label": "Amount to bet",
       "type": "number",
       "layout": {
@@ -9,7 +17,7 @@
       },
       "id": "Field_1l1j82a",
       "key": "bet_amount",
-      "description": "Choose an amout of money you want to bet"
+      "description": "Choose an amount of money you want to bet"
     }
   ],
   "type": "default",

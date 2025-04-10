@@ -17,13 +17,18 @@ def handle_spin(task: ExternalTask) -> TaskResult:
     money: int = int(task.get_variable("money"))
     bet_amount: int = int(task.get_variable("bet_amount"))
     result = spin()
-    
+
     try:
         mul = check_result(task, result)
+        won = bool(mul > 0)
     except ValueError as e:
-        return task.bpmn_error(500, e)
+        return task.bpmn_error("INVALID_BET", str(e))
 
-    return task.complete({"money": bet_amount * mul + money})
+    new_money = money + bet_amount * mul
+    return task.complete({
+        "money": new_money,
+        "won": won,
+    })
 
 
 def check_result(task: ExternalTask, result: Result) -> int:
