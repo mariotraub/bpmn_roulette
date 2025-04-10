@@ -1,0 +1,24 @@
+{
+  "components": [
+    {
+      "label": "Play again?",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_18hhq7h",
+        "columns": null
+      },
+      "id": "Field_0pot0zj",
+      "key": "again",
+      "properties": {}
+    }
+  ],
+  "type": "default",
+  "id": "Form_0p1fa2k",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.32.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.22.0",
+  "schemaVersion": 18
+}
