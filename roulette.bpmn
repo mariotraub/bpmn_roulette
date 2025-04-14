@@ -7,7 +7,7 @@
     <bpmn:messageFlow id="Flow_0od7k6m" sourceRef="Event_01fwuk4" targetRef="Event_0koexfa" />
   </bpmn:collaboration>
   <bpmn:process id="roulette-game" isExecutable="true" camunda:historyTimeToLive="10">
-    <bpmn:startEvent id="StartEvent_1">
+    <bpmn:startEvent id="StartEvent_1" name="Start: Player">
       <bpmn:outgoing>Flow_00nkytw</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:userTask id="Activity_0kpde4h" name="Choose what to bet on" camunda:formRef="Form_1uwb9e8" camunda:formRefBinding="latest">
@@ -87,7 +87,7 @@
       <bpmn:outgoing>Flow_1aevi3m</bpmn:outgoing>
       <bpmn:errorEventDefinition id="ErrorEventDefinition_0ef0c82" />
     </bpmn:boundaryEvent>
-    <bpmn:sequenceFlow id="Flow_1aevi3m" sourceRef="Event_04l3nbf" targetRef="Activity_1392tys" />
+    <bpmn:sequenceFlow id="Flow_1aevi3m" name="Money not available" sourceRef="Event_04l3nbf" targetRef="Activity_1392tys" />
     <bpmn:exclusiveGateway id="Gateway_0cxx0jd" name="Does player have money left?">
       <bpmn:incoming>Flow_17qm8d0</bpmn:incoming>
       <bpmn:outgoing>Flow_0nz6eos</bpmn:outgoing>
@@ -119,7 +119,7 @@
       <bpmn:outgoing>Flow_1xj5o3q</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_1xj5o3q" sourceRef="Activity_0y02dr4" targetRef="Event_01fwuk4" />
-    <bpmn:startEvent id="Event_11vdsym">
+    <bpmn:startEvent id="Event_11vdsym" name="Start: Dealer">
       <bpmn:extensionElements />
       <bpmn:outgoing>Flow_17du223</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_0j5gqcl" messageRef="Message_0kmii25" />
@@ -139,6 +139,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
         <dc:Bounds x="202" y="252" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="189" y="295" width="62" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_013ind5_di" bpmnElement="Activity_0kpde4h">
         <dc:Bounds x="290" y="230" width="100" height="80" />
@@ -269,6 +272,9 @@
         <di:waypoint x="660" y="348" />
         <di:waypoint x="500" y="348" />
         <di:waypoint x="500" y="310" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="554" y="356" width="52" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_17qm8d0_di" bpmnElement="Flow_17qm8d0">
         <di:waypoint x="1170" y="350" />
@@ -298,7 +304,7 @@
         <di:waypoint x="1400" y="190" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_0dz9df2_di" bpmnElement="Participant_0dz9df2" isHorizontal="true">
-        <dc:Bounds x="152" y="600" width="1876" height="250" />
+        <dc:Bounds x="152" y="600" width="2006" height="250" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1kfzctb_di" bpmnElement="Activity_0y02dr4">
@@ -306,6 +312,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1s38j5u_di" bpmnElement="Event_11vdsym">
         <dc:Bounds x="202" y="712" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="189" y="755" width="63" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1rqy4um_di" bpmnElement="Event_01fwuk4">
         <dc:Bounds x="442" y="712" width="36" height="36" />
