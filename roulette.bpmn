@@ -32,11 +32,11 @@
       <bpmn:outgoing>Flow_0cweikx</bpmn:outgoing>
       <bpmn:outgoing>Flow_0bugykg</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:userTask id="Activity_1v1tepu" name="Show winning screen">
+    <bpmn:userTask id="Activity_1v1tepu" name="Show winning screen" camunda:formRef="Form_0uszl7m" camunda:formRefBinding="latest">
       <bpmn:incoming>Flow_0cweikx</bpmn:incoming>
       <bpmn:outgoing>Flow_01unm2v</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="Activity_1h8d8fl" name="Show losing screen">
+    <bpmn:userTask id="Activity_1h8d8fl" name="Show losing screen" camunda:formRef="Form_18lhahk" camunda:formRefBinding="latest">
       <bpmn:incoming>Flow_0bugykg</bpmn:incoming>
       <bpmn:outgoing>Flow_17qm8d0</bpmn:outgoing>
     </bpmn:userTask>
@@ -48,7 +48,7 @@
     <bpmn:endEvent id="Event_0hlp3bz" name="Game ends">
       <bpmn:incoming>Flow_0cdcmrs</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:userTask id="Activity_12lcxev" name="Show end Screen">
+    <bpmn:userTask id="Activity_12lcxev" name="Show end Screen" camunda:formRef="Form_175rmut" camunda:formRefBinding="latest">
       <bpmn:incoming>Flow_03ghquu</bpmn:incoming>
       <bpmn:incoming>Flow_0nz6eos</bpmn:incoming>
       <bpmn:outgoing>Flow_0cdcmrs</bpmn:outgoing>

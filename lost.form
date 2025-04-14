@@ -1,0 +1,44 @@
+{
+  "components": [
+    {
+      "text": "# You Lost!",
+      "type": "text",
+      "layout": {
+        "row": "Row_1vgej8j",
+        "columns": null
+      },
+      "id": "Field_1p1vdpz"
+    },
+    {
+      "label": "New balance",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1hrfsng",
+        "columns": null
+      },
+      "id": "Field_1m71yev",
+      "key": "money",
+      "description": "Your current balance"
+    },
+    {
+      "label": "Your bet amount",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1j3za9y",
+        "columns": null
+      },
+      "id": "Field_16fwedo",
+      "key": "bet_amount",
+      "description": "The amount of money you bet"
+    }
+  ],
+  "type": "default",
+  "id": "Form_18lhahk",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.32.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.22.0",
+  "schemaVersion": 18
+}

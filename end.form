@@ -1,0 +1,43 @@
+{
+  "components": [
+    {
+      "text": "# The Game has ended",
+      "type": "text",
+      "layout": {
+        "row": "Row_15f46it",
+        "columns": null
+      },
+      "id": "Field_0hi9e6s"
+    },
+    {
+      "text": "Reasons could be:\n- you lost all of your money\n- you ended the game",
+      "type": "text",
+      "layout": {
+        "row": "Row_13bj4se",
+        "columns": null
+      },
+      "id": "Field_15rs6u0"
+    },
+    {
+      "label": "End balance",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0168krs",
+        "columns": null
+      },
+      "id": "Field_11etoav",
+      "key": "money",
+      "description": "The balance you ended your game with.",
+      "disabled": true
+    }
+  ],
+  "type": "default",
+  "id": "Form_175rmut",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.32.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.22.0",
+  "schemaVersion": 18
+}
